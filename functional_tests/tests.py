@@ -1,13 +1,14 @@
 #!/usr/bin/env python3
 
 
+from django.test import LiveServerTestCase
 from selenium import webdriver
 from selenium.webdriver.common.keys import Keys
 import time
 import unittest
 
 
-class NewVisitorTest(unittest.TestCase):
+class NewVisitorTest(LiveServerTestCase):
 
     def setUp(self):
         self.browser = webdriver.Chrome('/home/astrok/Documents/Python/projects/tdd/drivers/chromedriver')
@@ -24,7 +25,7 @@ class NewVisitorTest(unittest.TestCase):
     def test_can_start_a_list_and_retrieve_it_later(self):
 
         # A new user visits the start page
-        self.browser.get('http://127.0.0.1:8000')
+        self.browser.get(self.live_server_url)
 
         # He notices the page title and header mantion to-do list
         self.assertIn('To-Do', self.browser.title)
