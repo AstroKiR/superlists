@@ -1,6 +1,5 @@
 #!/usr/bin/env python3
 
-
 from django.test import LiveServerTestCase
 from selenium import webdriver
 from selenium.webdriver.common.keys import Keys
@@ -11,8 +10,8 @@ import unittest
 
 
 MAX_WAIT = 10
-
 DRIVER_PATH = '/home/astrok/Documents/Python/projects/tdd/drivers/chromedriver'
+
 
 class NewVisitorTest(LiveServerTestCase):
 
@@ -47,7 +46,9 @@ class NewVisitorTest(LiveServerTestCase):
 
         # He is invited to enter a to-do list straight away
         inputbox = self.browser.find_element_by_id('id_new_item')
-        self.assertEqual(inputbox.get_attribute('placeholder'), 'Enter a to-do item')
+        self.assertEqual(
+            inputbox.get_attribute('placeholder'),
+            'Enter a to-do item')
 
         # He types "Buy new tires"
         inputbox.send_keys('Buy new tires')
@@ -58,7 +59,9 @@ class NewVisitorTest(LiveServerTestCase):
 
         # There is still a text box inviting his to add another item.
         inputbox = self.browser.find_element_by_id('id_new_item')
-        self.assertEqual(inputbox.get_attribute('placeholder'), 'Enter a to-do item')
+        self.assertEqual(
+            inputbox.get_attribute('placeholder'),
+            'Enter a to-do item')
 
         # He enters "Change the tires"
         inputbox.send_keys('Change the tires')
@@ -96,10 +99,9 @@ class NewVisitorTest(LiveServerTestCase):
         self.browser.get(self.live_server_url)
         page_text = self.browser.find_element_by_tag_name('body').text
         self.assertNotIn('Buy new tires', page_text)
-        self.assertNotIn('make a fly', page_text)
+        self.assertNotIn('Change the tires', page_text)
 
         # Francis starts a new list by entering a new item.
-        # He is less interesting than John...
         inputbox = self.browser.find_element_by_id('id_new_item')
         inputbox.send_keys('Buy milk')
         inputbox.send_keys(Keys.ENTER)
@@ -117,5 +119,8 @@ class NewVisitorTest(LiveServerTestCase):
 
         # Satisfied, they both go back to sleep
 
+
+
 if __name__ == '__main__':
     unittest.main(warnings='ignore')
+
