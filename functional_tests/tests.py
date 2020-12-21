@@ -68,10 +68,10 @@ class NewVisitorTest(LiveServerTestCase):
         inputbox.send_keys(Keys.ENTER)
 
         # The page updates again and he sees two rows in to-do list
-        # 1: Buy new tires
         # 2: Change the tires
-        self.wait_for_row_in_list_table('1: Buy new tires')
+        # 1: Buy new tires
         self.wait_for_row_in_list_table('2: Change the tires')
+        self.wait_for_row_in_list_table('1: Buy new tires')
 
         # Satisfied, he goes back to sleep
 
@@ -115,7 +115,7 @@ class NewVisitorTest(LiveServerTestCase):
         # Again, there is no trace of John's list
         page_text = self.browser.find_element_by_tag_name('body').text
         self.assertNotIn('Buy new tires', page_text)
-        self.assertNotIn('Buy milk', page_text)
+        self.assertIn('Buy milk', page_text)
 
         # Satisfied, they both go back to sleep
 
